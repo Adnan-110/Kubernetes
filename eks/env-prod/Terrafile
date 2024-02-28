@@ -1,0 +1,3 @@
+eks:
+  source: "https://github.com/Adnan-110/Terraform-module-eks.git"
+  version: "main"
