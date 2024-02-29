@@ -13,3 +13,16 @@ spec:
     image: nginx:stable
     ports:
     - containerPort: 80
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: httpd-pod
+spec:
+  containers:
+  - name: httpd-container
+    image: httpd
+    ports:
+    - containerPort: 81
