@@ -23,7 +23,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: Movie-Details
+  name: movie-details
 data:
   Movie_Name: Dunki
   Actor_Name: SRK
