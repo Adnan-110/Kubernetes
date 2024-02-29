@@ -29,3 +29,20 @@ spec:
       limits:
         memory: "128Mi"
         cpu: "500m"
+
+--- 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend-heavy
+spec:
+  containers:
+  - name: app
+    image: nginx
+    resources:
+      requests:
+        memory: "4096Mi"
+        cpu: "4000m"
+      limits:
+        memory: "12288Mi"
+        cpu: "16384m"
