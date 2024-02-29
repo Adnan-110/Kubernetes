@@ -1,0 +1,24 @@
+# Purpose of Startup Probes:
+#   Detection: Startup probes detect when a container’s workload has launched and the container is ready to handle requests.
+#   Health Check: They serve as a health check for your application during its initial moments.
+#   Avoid Interference: Importantly, startup probes ensure that liveness and readiness probes do not start until the startup probe succeeds. This prevents interference with the application startup process.
+# How It Works:
+#   When a pod starts, the kubelet waits for the startup probe to succeed before initiating liveness and readiness probes.
+#   This approach prevents premature killing of containers during slow startup, allowing them to become fully operational before being checked for liveness or readiness.
+
+# Example of Startup Probe
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+spec:
+  containers:
+  - name: myapp-container
+    image: myapp-image
+    startupProbe:
+      httpGet:
+        path: /health
+        port: 8080
+      initialDelaySeconds: 30
+      periodSeconds: 5
