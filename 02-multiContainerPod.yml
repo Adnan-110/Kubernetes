@@ -1,0 +1,12 @@
+# Single Pod Multiple Container Example
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multiple-container-pod
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx:stable
+  - name: centos-container
+    image: centos:7
