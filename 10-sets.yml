@@ -1,0 +1,6 @@
+### Sets are of 4 types :
+
+# 1) ReplicaSet       : This only ensure you the mentioned number of pods at any point of time and if any of the pod fails, schedule instructs the KUBELET to create one more pod immediately.
+# 2) DeploymentSet    : This ensure at any point of time, the desired number of replicas as available and at the same time, this offers you to move the applicaion from One verison to other version.
+# 3) StatefulSet 
+# 4) DaemonSet
