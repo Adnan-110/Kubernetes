@@ -1,0 +1,31 @@
+# Limits and requests define what is the minimum and maximum cpu, memory that a pod can have.
+
+# Requests define the Lower Cap or Minimum Resource that are needed to start a pod
+
+# Limits define the Upper Cap or Maximum Resource that can be used by the pod. And if the pod reaches the maximum resources, then it is [kubelet] is going to restart the POD 
+
+# Metrics can be CPO, Memory or PageSize. [ You can also create your custom metrics to define them].
+
+# Limits and requests are at the Container Level of the Pod. Not at POD Level.
+
+# 20% of the resources will be consumed by OS [ Internal Functions ]
+
+# Ensure pod 100% should be less than 80% of the node size.
+# If pod is not able to find the node as per it's limits and requests, POD will stay in the pending state.
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend
+spec:
+  containers:
+  - name: app
+    image: nginx
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
