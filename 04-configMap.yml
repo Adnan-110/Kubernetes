@@ -1,0 +1,31 @@
+# ---- configMap :  A ConfigMap is a Kubernetes object that stores configuration data as key-value pairs. It separates configuration from application code, promoting flexibility and maintainability.
+#         Usage : ConfigMaps can be used by pods as environment variables, command-line arguments, or as configuration files mounted into containers.
+#         Example : Storing database connection strings, URLs, or any other configuration needed by applications running in Kubernetes.
+
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: game-demo
+# data:
+#   # property-like keys; each key maps to a simple value
+#   player_initial_lives: "3"
+#   ui_properties_file_name: "user-interface.properties"
+
+#   # file-like keys
+#   game.properties: |
+#     enemy.types=aliens,monsters
+#     player.maximum-lives=5    
+#   user-interface.properties: |
+#     color.good=purple
+#     color.bad=yellow
+#     allow.textmode=true     
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: Movie-Details
+data:
+  Movie_Name: Dunki
+  Actor_Name: SRK
+  Director_Name: RKH
+  IMDB_URL: "https://www.imdb.com/title/tt15428134/"
