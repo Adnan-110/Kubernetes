@@ -1,0 +1,19 @@
+# Environment variables are container specific
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx:stable
+    ports:
+    - containerPort: 80
+    env: 
+      - name: MOVIE
+        value: Dunki
+      - name: ACTOR
+        value: SRK
+      - name: DIRECTOR
+        value: RKH 
