@@ -1,0 +1,27 @@
+# Probes in Kubernetes are typically health checks
+# Types of Probes in Kubernetes :
+#   1)Liveness Probe: Determines if a container is running and healthy. Kubernetes restarts the container if the liveness probe fails, indicating the application inside is not functioning properly.
+#   2)Readiness Probe: Checks if a container is ready to receive traffic. If the readiness probe fails, Kubernetes removes the container's IP address from the service endpoints, ensuring it doesn't receive traffic until it becomes ready again.
+#   3)Startup Probe: Determines when a container is ready to start accepting traffic. Unlike the readiness probe, the startup probe can delay the application startup. Kubernetes uses it to determine if a container should be considered ready without impacting its readiness state.
+
+# When the probes fails, Kubernetes [Kubelet] is going to restart the pod.
+
+# Example of Readiness Probe
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: goproxy
+  labels:
+    app: goproxy
+spec:
+  containers:
+  - name: goproxy
+    image: registry.k8s.io/goproxy:0.1
+    ports:
+    - containerPort: 8080
+    readinessProbe:
+      tcpSocket:
+        port: 8080
+      initialDelaySeconds: 15
+      periodSeconds: 10
