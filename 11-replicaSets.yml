@@ -19,3 +19,22 @@ spec:
       containers:
       - name: nginx
         image: nginx
+        ports:
+        - containerPort: 80  
+
+--- 
+# Creating ClusterIP Service ( this is the default type ) 
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-svc
+spec:
+  selector:
+    tier: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+# Note: In replica sets, you cannot move from one version to another version. [ Updates are not possible , the only option is DELETE RS and Create RS.]
+# If you're planning for version update, then DEPLOYMENT SET is the right choice.        
