@@ -44,4 +44,4 @@ spec:
     - containerPort: 81
     envFrom:
     - configMapRef:
-      name: movie-details
+        name: movie-details
