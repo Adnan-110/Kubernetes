@@ -10,3 +10,4 @@ spec:
     image: nginx:stable
   - name: centos-container
     image: centos:7
+    command: ["sleep", "1900"]
