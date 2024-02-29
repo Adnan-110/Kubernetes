@@ -29,3 +29,19 @@ data:
   Actor_Name: SRK
   Director_Name: RKH
   IMDB_URL: "https://www.imdb.com/title/tt15428134/"
+
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: httpd-pod
+spec:
+  containers:
+  - name: httpd-container
+    image: httpd
+    ports:
+    - containerPort: 81
+    envFrom:
+    - configMapRef:
+      name: movie-details
