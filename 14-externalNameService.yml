@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+  namespace: prod
+spec:
+  type: ExternalName
+  externalName: my.database.example.com
+
+# This is like creating a CNAME record, keep in mind this only works with in the cluster.
+
+### Whenever we call "my-service", requests will be translated to "my.database.example.com"
