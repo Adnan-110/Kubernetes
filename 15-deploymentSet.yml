@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: Deployment
 metadata:
   name: frontend-rs
   labels:
@@ -7,7 +7,11 @@ metadata:
     tier: frontend
 spec:
   # modify replicas according to your case
-  replicas: 3
+  replicas: 10
+  strategy:
+    type: RollingUpdate 
+    rollingUpdate:
+      maxUnavailable: 20
   selector:
     matchLabels:
       tier: frontend
@@ -18,12 +22,12 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:stable-bullseye-perl
+        image: nginx:latest
         ports:
-        - containerPort: 80
+        - containerPort: 80  
 
+--- 
 # Creating ClusterIP Service ( this is the default type ) 
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -32,9 +36,9 @@ spec:
   selector:
     tier: frontend
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
+    - protocol: TCP
+      port: 80
+      targetPort: 80
 
 # In deployment, there are 2 types of strategies :
 # 1) Rolling Update 
