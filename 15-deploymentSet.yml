@@ -25,7 +25,7 @@ spec:
         image: nginx:latest
         ports:
         - containerPort: 80  
-
+        
 --- 
 # Creating ClusterIP Service ( this is the default type ) 
 apiVersion: v1

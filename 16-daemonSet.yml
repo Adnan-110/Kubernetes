@@ -1,0 +1,47 @@
+# What is a DaemonSet ? 
+# A DaemonSet in Kubernetes ensures that every (or some) node runs a copy of a specific pod. When new nodes are added to the cluster, the DaemonSet automatically schedules pods on those nodes. Conversely, when nodes are removed, the associated pods are gracefully terminated. It's a powerful way to ensure that certain workloads are distributed across all nodes in a cluster, regardless of their number or location.
+# T he corresponding Pods are adjusted accordingly. In this example, the fluentd-elasticsearch Pod will be deployed on every node in the cluster, 
+# making it suitable for tasks like logs collection or monitoring
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd-elasticsearch
+  namespace: kube-system
+  labels:
+    k8s-app: fluentd-logging
+spec:
+  selector:
+    matchLabels:
+      name: fluentd-elasticsearch
+  template:
+    metadata:
+      labels:
+        name: fluentd-elasticsearch
+    spec:
+      tolerations:
+        # These tolerations allow the daemonset to run on control plane nodes
+        # Remove them if your control plane nodes should not run pods
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
+        - key: node-role.kubernetes.io/master
+          operator: Exists
+          effect: NoSchedule
+      containers:
+        - name: fluentd-elasticsearch
+          image: quay.io/fluentd_elasticsearch/fluentd:v2.5.2
+          resources:
+            limits:
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 200Mi
+          volumeMounts:
+            - name: varlog
+              mountPath: /var/log
+      terminationGracePeriodSeconds: 30
+  volumes:
+    - name: varlog
+      hostPath:
+        path: /var/log

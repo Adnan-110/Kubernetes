@@ -1,0 +1,38 @@
+### Storage Class
+
+# 1. Storage Classes:
+#    - A StorageClass in Kubernetes is an API object that allows administrators to describe the classes of storage they offer. These classes can map to different quality-of-service levels, backup policies, or other arbitrary policies determined by cluster administrators.
+#    - Unlike Deployments, which are more suitable for stateless workloads, StatefulSets, which we discussed earlier, are designed for stateful applications. StatefulSets ensure stable identities for Pods and provide persistent storage.
+#    - Each StorageClass contains essential fields like provisioner, parameters, and reclaimPolicy. These fields come into play when a PersistentVolume (PV) belonging to the class needs to be dynamically provisioned to satisfy a PersistentVolumeClaim (PVC).
+
+# 2. Sample StorageClass Manifest:
+#    Below is an example of a StorageClass manifest:
+
+# ```yaml
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata:
+#   name: low-latency
+#   annotations:
+#     storageclass.kubernetes.io/is-default-class: "false"
+# provisioner: csi-driver.example-vendor.example
+# reclaimPolicy: Retain # Default value is Delete
+# allowVolumeExpansion: true
+# mountOptions:
+#   - discard # This might enable UNMAP / TRIM at the block storage layer
+# volumeBindingMode: WaitForFirstConsumer
+# parameters:
+#   guaranteedReadWriteLatency: "true" # Provider-specific
+# ```
+
+# In this example:
+# - The provisioner specifies the storage driver (e.g., CSI driver).
+# - reclaimPolicy determines whether to retain or delete the PV when released.
+# - allowVolumeExpansion enables volume resizing.
+# - mountOptions can include additional options like enabling UNMAP/TRIM.
+# - parameters are provider-specific settings.
+
+# 3. Default StorageClass:
+#    You can mark a StorageClass as the default for your cluster. When a PVC doesn't specify a `storageClassName`, the default StorageClass is used. Note that having multiple default StorageClasses allows for seamless migration.
+
+# Remember, StorageClasses play a crucial role in managing storage for your Kubernetes workloads! 
